@@ -13,7 +13,11 @@ plugins {
 
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+
+    id "nebula.lint" version "17.7.1"
 }
+
+gradleLint.rules = ['dependency-parentheses', 'dependency-tuple']
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -24,6 +28,7 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.0.1-jre'
 }
+
 
 testing {
     suites {
