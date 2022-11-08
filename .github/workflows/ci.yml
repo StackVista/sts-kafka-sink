@@ -22,7 +22,8 @@ jobs:
         with:
           filters: |
             src:
-              - 'app/**'
+              - 'src/**'
+              - 'build.gradle'
 
     outputs:
       sourceAffected: ${{ steps.source-affected.outputs.src }}
