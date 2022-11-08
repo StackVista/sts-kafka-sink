@@ -75,3 +75,10 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: test
+
+      - name: Save test report
+        continue-on-error: true
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report
+          path: ./build/reports/tests/test
