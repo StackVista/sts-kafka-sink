@@ -31,8 +31,10 @@ class StsSinkConnectorTest extends Specification {
     setup:
     def count = 5
     def filename = "some-file.log"
+    def reporter = "some-reporter"
     def props = [:]
     props[Config.OUTPUT_FILE] = filename
+    props[Config.REPORTER] = reporter
     def sink = new StsSinkConnector()
 
     when:
@@ -42,6 +44,8 @@ class StsSinkConnectorTest extends Specification {
     then:
     configs.size() == count
     configs.stream().filter({c -> c.containsKey(Config.OUTPUT_FILE)}).count() == count
+    configs.stream().filter({c -> c.containsKey(Config.REPORTER)}).count() == count
     configs.stream().filter({c -> c.get(Config.OUTPUT_FILE) == filename}).count() == count
+    configs.stream().filter({c -> c.get(Config.REPORTER) == reporter}).count() == count
   }
 }

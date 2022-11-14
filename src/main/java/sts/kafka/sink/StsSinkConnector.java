@@ -15,15 +15,19 @@ import org.apache.kafka.connect.sink.SinkConnector;
 public class StsSinkConnector extends SinkConnector {
   public static String VERSION = "0.0.1";
   private String outputFile = "";
+  private String reporter = "";
 
   @Override
   public ConfigDef config() {
-    return new ConfigDef().define(Config.OUTPUT_FILE, ConfigDef.Type.STRING, Importance.HIGH, "Output log file.");
+    return new ConfigDef()
+        .define(Config.OUTPUT_FILE, ConfigDef.Type.STRING, Importance.HIGH, "Output log file.")
+        .define(Config.REPORTER, ConfigDef.Type.STRING, Importance.HIGH, "Reporter type to use.");
   }
 
   @Override
   public void start(Map<String, String> props) {
     this.outputFile = props.get(Config.OUTPUT_FILE);
+    this.reporter = props.get(Config.REPORTER);
   }
 
   @Override
@@ -49,6 +53,7 @@ public class StsSinkConnector extends SinkConnector {
   private Map<String, String> taskConfig() {
     Map<String, String> conf = new HashMap<String, String>();
     conf.put(Config.OUTPUT_FILE, this.outputFile);
+    conf.put(Config.REPORTER, this.reporter);
     return conf;
   }
 
