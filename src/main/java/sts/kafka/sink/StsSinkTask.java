@@ -10,11 +10,11 @@ import org.apache.kafka.connect.sink.SinkTask;
 public class StsSinkTask extends SinkTask {
   public static String VERSION = "0.0.1";
 
-  private String outputFile = "";
+  private StsReporter reporter;
 
   @Override
   public void start(Map<String, String> props) {
-    this.outputFile = props.get(Config.OUTPUT_FILE);
+    this.reporter = StsReporter.get(props);
   }
 
   @Override
@@ -29,7 +29,7 @@ public class StsSinkTask extends SinkTask {
 
   @Override
   public void put(Collection<SinkRecord> records) {
-    // TODO Dump records to outputFile.
+    records.forEach((r) -> this.reporter.write(r));
   }
 
 }
