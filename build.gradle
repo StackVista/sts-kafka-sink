@@ -33,3 +33,9 @@ testing {
 application {
     mainClass = "sts.kafka.sink.App"
 }
+
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
