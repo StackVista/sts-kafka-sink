@@ -1,0 +1,41 @@
+plugins {
+    id "groovy"
+    id "application"
+    id "nebula.lint" version "17.7.1"
+}
+
+gradleLint.rules = ["dependency-parentheses", "dependency-tuple"]
+
+repositories {
+    mavenCentral()
+
+    maven {
+        url "https://packages.confluent.io/maven/"
+    }
+}
+
+dependencies {
+    implementation "com.google.guava:guava:31.0.1-jre"
+    implementation "org.apache.kafka:kafka-clients:7.0.1-ccs"
+    implementation "org.apache.kafka:connect-api:7.0.1-ccs"
+    implementation "io.confluent:kafka-avro-serializer:7.0.1"
+    implementation "io.confluent:kafka-connect-avro-converter:7.0.1"
+}
+
+testing {
+    suites {
+        test {
+            useSpock("2.1-groovy-3.0")
+        }
+    }
+}
+
+application {
+    mainClass = "sts.kafka.sink.App"
+}
+
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
